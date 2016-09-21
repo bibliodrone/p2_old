@@ -1,29 +1,18 @@
 <?php
-// $file = fopen("wordlist.txt", "r");
-$wordlist = array("to", "be", "or", "not", "and", "whatever");
-
-/* while (!feof($file)) {
-   $wordlist[] = fgets($file); */
+$wordlist = explode("\n", file_get_contents('wordlist.txt'));
+$numRequested = $_POST["numRequested"];
+# Input validation
+if (empty($_POST["numRequested"])) {
+  echo "<p>Please enter a number.</p>";
+  return;
 }
-print_r ($wordlist)
 
-//fclose($file);
-//$listLength = count($wordlist);
+else {
+  $numRequested = $_POST["numRequested"];
+  $numRequested = trim($numRequested);
 
-	# Input validation
-	// if($numRequested < 4 || $numRequested > 9)) {
-	// 	$error = 'Valid entries are 4 to 9.';
-	// 	return;
-	// }
-	// else if(!ctype_digit($numRequested)) {
-	// 	$error = 'Please enter a number between 4 and 9.';
-	// 	return;
-	// }
-$wordsOut = array();
-
-for ($n = 0; $n < $numRequested; n++) {
-	$random = rand(1, $listLength);
-	echo"<p>";
-	echo $wordlist[$random];
-	echo"</p>";
+if(preg_match("[^1-9]", $numRequested)) {
+  echo "<p>Valid entries are 4 to 9.</p>";
+  return;
+  }
 }
