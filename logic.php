@@ -1,18 +1,27 @@
 <?php
 $wordlist = explode("\n", file_get_contents('wordlist.txt'));
-$numRequested = $_POST["numRequested"];
-# Input validation
-if (empty($_POST["numRequested"])) {
-  echo "<p>Please enter a number.</p>";
-  return;
-}
+$wantNum = "" ;
+$numList = array(0,1,2,3,4,5,6,7,8,9);
+$wantSymbol = "" ;
+$symbolList = array("!", "@","#","$","&");
+$numRequested= 0;
 
-else {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
   $numRequested = $_POST["numRequested"];
-  $numRequested = trim($numRequested);
 
-if(preg_match("[^1-9]", $numRequested)) {
-  echo "<p>Valid entries are 4 to 9.</p>";
-  return;
+  # Input validation
+  if (empty($_POST["numRequested"])) {
+    $error = "Give me something to work with, here!";
+    return;
   }
+  else if(ctype_alpha($numRequested)) {
+    $error = 'Please enter numbers here; no letters or symbols.';
+    return;
+  }
+  else {
+    $numRequested = $_POST["numRequested"];
+    $numRequested = trim($numRequested);
+  }
+
 }
